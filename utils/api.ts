@@ -13,3 +13,12 @@ export const registerUser = async (data:RegisterUser) => {
     throw new Error(error.response?.data?.message || "Registration failed");
   }
 };
+
+export const loginUser = async (data:LoginUser) => {
+  try {
+    const response = await api.post("/auth/login", data);
+    return response.data;
+  } catch (error:any) {
+    throw new Error(error.response?.data?.message || "Login failed");
+  }
+};
