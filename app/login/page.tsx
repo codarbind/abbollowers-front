@@ -4,12 +4,13 @@ import { useState } from 'react';
 import styles from '../../styles/Login.module.css';
 import { LoginUser } from '@/utils/interfaces';
 import { loginUser } from '@/utils/api';
+import { useRouter } from 'next/navigation';
 
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginUser>({ email: '', password: '' });
   const [error, setError] = useState<string | null>(null);
-
+  const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -18,8 +19,10 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await loginUser(formData);
+     let data = await loginUser(formData);
+
       alert('Login successful');
+      router.push(`/account/${data.data.id}`)
     } catch (err:any) {
       setError(err.message);
     }

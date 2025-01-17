@@ -19,3 +19,12 @@ export interface UpdateAccount {
 
 
 
+export interface UserData {
+  bio: string;
+  username: string;
+  email: string;
+  isAccountOwner: boolean
+  followers: { id: string; username: string }[];
+  following: { id: string; username: string }[];
+  userId:string
+}
